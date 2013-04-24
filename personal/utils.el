@@ -1,7 +1,8 @@
+
 ;;cool lambda character
-(require 'lambda-mode)
-(add-hook 'python-mode-hook #'lambda-mode 1)
-(setq lambda-symbol (string (make-char 'greek-iso8859-7 107)))
+;;(require 'lambda-mode)
+;;(add-hook 'python-mode-hook #'lambda-mode 1)
+;;(setq lambda-symbol (string (make-char 'greek-iso8859-7 107)))
 
 ;;(elscreen-start)
 (global-set-key "\C-x\C-b" 'ibuffer)
@@ -15,7 +16,7 @@
     ;; and smaller 80 column windows for smaller displays
     ;; pick whatever numbers make sense for you
     (if (> (x-display-pixel-width) 1280)
-           (add-to-list 'default-frame-alist (cons 'width 160))
+           (add-to-list 'default-frame-alist (cons 'width 175))
            (add-to-list 'default-frame-alist (cons 'width 80)))
     ;; for the height, subtract a couple hundred pixels
     ;; from the screen height (for panels, menubars and
