@@ -1,3 +1,20 @@
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+;; nice mode to combine html with css and js
+(require 'multi-web-mode)
+   (setq mweb-default-major-mode 'html-mode)
+   (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                      (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                      (css-mode "<style *>" "</style>")))
+   (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5" "mustache"))
+   (multi-web-global-mode 1)
+
+
+
+;; abbreviations
+(setq abbrev-file-name             ;; tell emacs where to read abbrev
+        "~/.emacs.d/abbrev_defs")    ;; definitions from...
 
 ;;cool lambda character
 ;;(require 'lambda-mode)
@@ -23,7 +40,7 @@
     ;; whatnot), then divide by the height of a char to
     ;; get the height we want
     (add-to-list 'default-frame-alist 
-         (cons 'height (/ (- (x-display-pixel-height) 200)
+         (cons 'height (/ (- (x-display-pixel-height) 80)
                              (frame-char-height)))))))
 
 (set-frame-size-according-to-resolution)
