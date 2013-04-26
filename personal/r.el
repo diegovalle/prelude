@@ -17,6 +17,10 @@
 
 ;;; Code:
 
+(defadvice ac-common-setup (after give-yasnippet-highest-priority activate)
+  (setq ac-sources (delq 'ac-source-yasnippet ac-sources))
+  (add-to-list 'ac-sources 'ac-source-yasnippet))
+
 ;; Use shift-enter to split window & launch R (if not running), execute highlighted
 ;; region (if R running & area highlighted), or execute current line
 ;; (and move to next line, skipping comments). Nice.

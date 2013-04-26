@@ -1,0 +1,16 @@
+#!/usr/bin/python
+##-------------------------------------------------------------------
+## @copyright 2013 ShopEx Network Technology Co,.Ltd
+## File : hello
+## Author : filebat <markfilebat@126.com>
+## Description :
+## --
+## Created : <`(format-time-string "%Y-%m-%d" (current-time))`>
+## Updated: Time-stamp: <2013-01-28 15:54:21>
+##-------------------------------------------------------------------
+def test():
+    print "hello, world"
+
+if __name__=='__main__':
+    test()
+## File : hello ends
