@@ -59,7 +59,7 @@
        (fg3 "#b2b2b2")
        (fg4 "#a1a1a1")
        (bg1 "#1E1E1E")       ;; background
-       (bg2 "#202020")
+       (bg2 "#111111")
        (bg3 "#424242")
        (bg4 "#545454")
        (builtin "#569CD6")   ;; dark-blue
@@ -102,7 +102,7 @@
     `(highlight-numbers-number ((,class (:foreground ,dp_puke                          ))))
     `(line-number              ((,class (:background ,bg2                              ))))
     `(line-number-current-line ((,class (:background ,bg2                              ))))
-	  `(fringe                   ((,class (:background ,dp_background :foreground ,fg4   ))))
+    `(fringe                   ((,class (:background ,"#222222" :foreground ,"#333333"   ))))
     `(show-paren-match-face    ((,class (:background ,warning                          ))))
     `(isearch                  ((,class (:foreground ,warning :background ,bg3 :bold t ))))
     `(vertical-border          ((,class (:foreground ,fg3                              ))))
