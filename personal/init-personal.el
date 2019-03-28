@@ -1,3 +1,28 @@
+;; Personal emacs setting for Diego Valle
+;; to reload this file M-x eval-buffer
+
+;;Add MELPA repository for packages
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+
+;; install additional packages - add anyto this list that you want to
+;; be installed automatically
+;; (prelude-require-packages '(multiple-cursors ess))
+
+(setq ledger-post-auto-adjust-amounts t)
+
+;;smooth scrolling
+(setq prelude-use-smooth-scrolling t)
+
+
+;; shortcut to commonly used files
+;; C-x r j e
+(set-register ?e (cons 'file "~/.emacs.d/personal/init-personal.el"))
+;; C-x r j l
+(set-register ?l (cons 'file "~/Documents/org/ledger/journal.ledger"))
+;; C-x r j t
+(set-register ?t (cons 'file "~/Documents/org/todo.org"))
+
 (global-linum-mode t)
 
 (setq default-frame-alist '((font . "Consolas-13")))
@@ -45,3 +70,7 @@
 
 (setq linum-format 'linum-highlight-current-line-number)
 ;;(setq linum-format "%d \u2502 ")
+
+(customize-set-variable 'org-journal-dir "~/Documents/org/journal/")
+(customize-set-variable 'org-journal-date-format "%A, %B %d, %Y")
+(require 'org-journal)
