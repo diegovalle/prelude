@@ -114,3 +114,46 @@
 
 (require 'smooth-scroll)
 (smooth-scroll-mode t)
+
+;; This buffer is for text that is not saved, and for Lisp evaluation.
+;; To create a file, visit it with <open> and enter text in its buffer.
+
+
+(use-package emacs
+             :config
+             (setq-default scroll-preserve-screen-position t)
+             (setq-default scroll-conservatively 1) ; affects `scroll-step'
+             (setq-default scroll-margin 0)
+
+             (define-minor-mode prot/scroll-centre-cursor-mode
+               "Toggle centred cursor scrolling behaviour."
+               :init-value nil
+               :lighter " S="
+               :global nil
+               (if prot/scroll-centre-cursor-mode
+                   (setq-local scroll-margin (* (frame-height) 2)
+                               scroll-conservatively 0
+                               maximum-scroll-margin 0.5)
+                 (dolist (local '(scroll-preserve-screen-position
+                                  scroll-conservatively
+                                  maximum-scroll-margin
+                                  scroll-margin))
+                   (kill-local-variable `,local))))
+
+             ;; C-c l is used for `org-store-link'.  The mnemonic for this is to
+             ;; focus the Line and also works as a variant of C-l.
+             :bind ("C-c L" . prot/scroll-centre-cursor-mode))
+
+(use-package mouse
+             :config
+             ;; In Emacs 27, use Control + mouse wheel to scale text.
+             (setq mouse-wheel-scroll-amount
+                   '(1
+                     ((shift) . 5)
+                     ((meta) . 0.5)
+                     ((control) . text-scale)))
+             (setq mouse-drag-copy-region nil)
+             (setq make-pointer-invisible t)
+             (setq mouse-wheel-progressive-speed t)
+             (setq mouse-wheel-follow-mouse t)
+             :hook (after-init-hook . mouse-wheel-mode))
