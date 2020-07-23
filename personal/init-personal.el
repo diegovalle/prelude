@@ -1,10 +1,6 @@
 ;; Personal emacs setting for Diego Valle
 ;; to reload this file M-x eval-buffer
 
-;;Add MELPA repository for packages
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-
 ;; install additional packages - add anyto this list that you want to
 ;; be installed automatically
 ;; (prelude-require-packages '(multiple-cursors ess))
@@ -33,7 +29,7 @@
 (define-key global-map (kbd "C-c m") 'vr/mc-mark)
 
 
-(package-initialize)
+;; (package-initialize)
 (load-theme 'monokai-pro t)
 
 (require 'linum-highlight-current-line-number)
@@ -157,3 +153,13 @@
              (setq mouse-wheel-progressive-speed t)
              (setq mouse-wheel-follow-mouse t)
              :hook (after-init-hook . mouse-wheel-mode))
+
+(use-package centaur-tabs
+  :demand
+  :config
+  (centaur-tabs-mode t)
+  (setq centaur-tabs-set-icons t)
+  (setq centaur-tabs-set-bar 'under)
+  :bind
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward))
