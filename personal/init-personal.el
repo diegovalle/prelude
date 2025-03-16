@@ -19,7 +19,6 @@
 ;; C-x r j t
 (set-register ?t (cons 'file "~/Documents/org/todo.org"))
 
-(global-linum-mode t)
 
 (setq default-frame-alist '((font . "Consolas-13")))
 
@@ -32,39 +31,19 @@
 ;; (package-initialize)
 (load-theme 'monokai-pro t)
 
-(require 'linum-highlight-current-line-number)
+;; (require 'linum-highlight-current-line-number)
 
 (require 'hl-line)
 
-(defface my-linum-hl
-  `((t :inherit linum :background ,(face-background 'hl-line nil t)))
-  "Face for the current line number."
-  :group 'linum)
+;; (defface my-linum-hl
+;;   `((t :inherit linum :background ,(face-background 'hl-line nil t)))
+;;   "Face for the current line number."
+;;   :group 'linum)
 
-(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; (add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
 
-(defun my-linum-get-format-string ()
-  (let* ((width (1+ (length (number-to-string
-                             (count-lines (point-min) (point-max))))))
-         (format (concat "%" (number-to-string width) "d \u2502")))
-    (setq my-linum-format-string format)))
 
-(defvar my-linum-current-line-number 0)
-
-(setq linum-format 'my-linum-format)
-
-(defun my-linum-format (line-number)
-  (propertize (format my-linum-format-string line-number) 'face
-              (if (eq line-number my-linum-current-line-number)
-                  'my-linum-hl
-                'linum)))
-
-(defadvice linum-update (around my-linum-update)
-  (let ((my-linum-current-line-number (line-number-at-pos)))
-    ad-do-it))
-(ad-activate 'linum-update)
-
-(setq linum-format 'linum-highlight-current-line-number)
 ;;(setq linum-format "%d \u2502 ")
 
 (customize-set-variable 'org-journal-dir "~/Documents/org/journal/")
@@ -108,8 +87,8 @@
   (align-regexp begin end
                 (rx (group (zero-or-more (syntax whitespace))) ",") 1 1 ))
 
-(require 'smooth-scroll)
-(smooth-scroll-mode t)
+;;(require 'smooth-scroll)
+;;(smooth-scroll-mode t)
 
 ;; This buffer is for text that is not saved, and for Lisp evaluation.
 ;; To create a file, visit it with <open> and enter text in its buffer.
@@ -160,6 +139,52 @@
   (centaur-tabs-mode t)
   (setq centaur-tabs-set-icons t)
   (setq centaur-tabs-set-bar 'under)
+;;  (centaur-tabs-change-fonts "arial" 160)
   :bind
   ("C-<prior>" . centaur-tabs-backward)
   ("C-<next>" . centaur-tabs-forward))
+
+(require 'sublimity)
+(require 'sublimity-scroll)
+;;(require 'sublimity-map) ;; experimental
+;;(require 'sublimity-attractive)
+(sublimity-mode 1)
+
+(require 'flycheck-vale)
+(flycheck-vale-setup)
+
+;; ledger stuff
+(setq ledger-post-amount-alignment-at :decimal)
+(setq undo-limit 800000
+      undo-strong-limit 12000000
+      undo-outer-limit 120000000)
+
+(defun generate-buffer()
+      "Make a temporary buffer and switch to it - Like C-n for Sublime etc"
+  (interactive)
+  (switch-to-buffer (get-buffer-create (concat "tmp-" (format-time-string "%m.%dT%H.%M.%S")))))
+
+
+; persistent storage
+
+(setq persistent-scratch-save-file "~/Documents/scratch/persistent-scratch")
+(setq persistent-scratch-backup-directory "~/Documents/scratch")
+(persistent-scratch-setup-default)
+(persistent-scratch-autosave-mode 1)
+(ignore-errors (persistent-scratch-restore))
+
+(defun rmd-mode ()
+  "ESS Markdown mode for rmd files"
+  (interactive)
+  ;;(setq load-path
+    ;;    (append (list "path/to/polymode/" "path/to/polymode/modes/")
+      ;;          load-path))
+  (require 'poly-R)
+  (require 'poly-markdown)
+  (poly-markdown+r-mode))
+
+;; associate the new polymode to Rmd files:
+(add-to-list 'auto-mode-alist
+'("\\.[rR]md\\'" . poly-gfm+r-mode))
+;; uses braces around code block language strings:
+(setq markdown-code-block-braces t)
